@@ -1,0 +1,38 @@
+O Portainer é uma super ferramenta de gerenciamento de contêineres com uma interface gráfica amigável 
+para facilitar a administração de ambientes Docker e Kubernetes. Serve para simplificar nossa vida.
+
+Servidor: Ubuntu 20.04
+
+Criar registro do Tipo A apontando para o IP do seu servidor.
+portainer.rwebtec.com.br
+
+Instalação Docker
+
+sudo apt-get update ; apt-get install -y apparmor-utils
+
+# hostnamectl set-hostname meuservidor
+
+hostnamectl
+
+Altera nome do servidor
+
+nano /etc/hosts
+
+127.0.0.1 meuservidor
+
+curl -fsSL https://get.docker.com | bash
+
+docker swarm init
+
+docker network create --driver=overlay minha_rede
+
+nano traefik.yaml
+
+docker stack deploy --prune --resolve-image always -c traefik.yaml traefik
+
+
+Instalação portainer
+
+nano portainer.yaml
+
+docker stack deploy --prune --resolve-image always -c portainer.yaml portainer
