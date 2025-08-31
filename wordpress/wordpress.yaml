@@ -1,0 +1,48 @@
+version: "3.7"
+services:
+  serrinha2:
+    image: wordpress:latest
+    volumes:
+      - serrinha2_wordpress_data:/var/www/html
+      - wordpress_php_data:/usr/local/etc/php
+    networks:
+      - minha_rede
+    environment:
+      - WORDPRESS_DB_NAME=serrinha
+      - WORDPRESS_DB_HOST=mysql
+      - WORDPRESS_DB_PORT=3306
+      - WORDPRESS_DB_USER=root
+      - WORDPRESS_DB_PASSWORD=Admin!!Capacit@0408
+      # REDIS
+      - WP_REDIS_HOST=
+      - WP_REDIS_URI=redis://:nPcnRWOLitkZsvnUiUIrGm08BcljWa73@redis:6379
+      - WP_REDIS_OPT_LIMITER_MAX=1
+      - WP_REDIS_OPT_LIMITER_DURATION=3000
+      - WP_REDIS_DATABASE=
+      - VIRTUAL_HOST=serrinha2.capacitaja.com
+      - WP_LOCALE=pt_BR
+    deploy:
+      mode: replicated
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == manager
+      labels:
+        - traefik.enable=true
+        - traefik.http.routers.serrinha2.rule=Host(`serrinha2.capacitaja.com`)
+        - traefik.http.routers.serrinha2.entrypoints=websecure
+        - traefik.http.routers.serrinha2.tls.certresolver=letsencryptresolver
+        - traefik.http.routers.serrinha2.service=serrinha2
+        - traefik.http.services.serrinha2.loadbalancer.server.port=80
+        - traefik.http.services.serrinha2.loadbalancer.passHostHeader=true
+volumes:
+  serrinha2_wordpress_data:
+    external: true
+    name: serrinha2_wordpress_data
+  wordpress_php_data:
+    external: true
+    name: wordpress_php_data
+networks:
+  minha_rede:
+    name: minha_rede
+    external: true

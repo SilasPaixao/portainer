@@ -1,0 +1,17 @@
+1º Portainer Instalado
+
+wordpress1.rodneipires.com.br
+wordpress2.rodneipires.com.br
+
+2º Instalar o Mysql
+
+3º Instalar o Redis
+
+sudo timedatectl set-timezone America/Sao_Paulo
+
+
+Cria banco de dados mysql
+
+mysql -u root -p
+
+CREATE DATABASE wordpress;
