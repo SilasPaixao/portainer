@@ -4,25 +4,17 @@ services:
   traefik:
     image: traefik:latest
     command:
-      - "--api.dashboard=true"      
-      - "--providers.docker.endpoint=unix:///var/run/docker.sock"
-      - "--providers.docker.exposedbydefault=false"
-      - "--providers.docker.network=minha_rede"
-      - "--providers.swarm=true"
-      - "--entrypoints.web.address=:80"
-      - "--entrypoints.web.http.redirections.entryPoint.to=websecure"
-      - "--entrypoints.web.http.redirections.entryPoint.scheme=https"
-      - "--entrypoints.web.http.redirections.entrypoint.permanent=true"
-      - "--entrypoints.websecure.address=:443"
-      - "--certificatesresolvers.letsencryptresolver.acme.httpchallenge=true"
-      - "--certificatesresolvers.letsencryptresolver.acme.httpchallenge.entrypoint=web"
-      - "--certificatesresolvers.letsencryptresolver.acme.email=rodnei@rwebtec.com.br"
-      - "--certificatesresolvers.letsencryptresolver.acme.storage=/etc/traefik/letsencrypt/acme.json"
-      - "--log.level=DEBUG"
-      - "--log.format=common"
-      - "--log.filePath=/var/log/traefik/traefik.log"
-      - "--accesslog=true"
-      - "--accesslog.filepath=/var/log/traefik/access-log"
+  - "--providers.docker=true"
+  - "--providers.docker.swarmMode=true"
+  - "--providers.docker.exposedbydefault=false"
+  - "--providers.docker.network=minha_rede"
+
+  - "--entrypoints.web.address=:80"
+  - "--entrypoints.websecure.address=:443"
+
+  - "--certificatesresolvers.letsencryptresolver.acme.tlschallenge=true"
+  - "--certificatesresolvers.letsencryptresolver.acme.email=rodnei@rwebtec.com.br"
+  - "--certificatesresolvers.letsencryptresolver.acme.storage=/etc/traefik/letsencrypt/acme.json"
     deploy:
       placement:
         constraints:
