@@ -27,14 +27,15 @@ services:
       placement:
         constraints: [node.role == manager]
       labels:
-        - "traefik.enable=true"
-        - "traefik.docker.network=minha_rede"
-        - "traefik.http.routers.portainer.rule=Host(`portainer.rodneipires.com.br`)"
-        - "traefik.http.routers.portainer.entrypoints=websecure"
-        - "traefik.http.routers.portainer.priority=1"
-        - "traefik.http.routers.portainer.tls.certresolver=letsencryptresolver"
-        - "traefik.http.routers.portainer.service=portainer"
-        - "traefik.http.services.portainer.loadbalancer.server.port=9000"
+        labels:
+          - "traefik.enable=true"
+          - "traefik.docker.network=minha_rede"
+          - "traefik.http.routers.portainer.rule=Host(`portainer.capacitaja.com`)"
+          - "traefik.http.routers.portainer.entrypoints=websecure"
+          - "traefik.http.routers.portainer.tls=true"
+          - "traefik.http.routers.portainer.tls.certresolver=letsencryptresolver"
+          - "traefik.http.services.portainer.loadbalancer.server.port=9000"
+
 
 networks:
   minha_rede:
