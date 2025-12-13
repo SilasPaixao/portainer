@@ -4,17 +4,15 @@ services:
   traefik:
     image: traefik:latest
     command:
-  - "--providers.docker=true"
-  - "--providers.docker.swarmMode=true"
-  - "--providers.docker.exposedbydefault=false"
-  - "--providers.docker.network=minha_rede"
-
-  - "--entrypoints.web.address=:80"
-  - "--entrypoints.websecure.address=:443"
-
-  - "--certificatesresolvers.letsencryptresolver.acme.tlschallenge=true"
-  - "--certificatesresolvers.letsencryptresolver.acme.email=rodnei@rwebtec.com.br"
-  - "--certificatesresolvers.letsencryptresolver.acme.storage=/etc/traefik/letsencrypt/acme.json"
+      - "--providers.docker=true"
+      - "--providers.docker.swarmMode=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--providers.docker.network=minha_rede"
+      - "--entrypoints.web.address=:80"
+      - "--entrypoints.websecure.address=:443"
+      - "--certificatesresolvers.letsencryptresolver.acme.tlschallenge=true"
+      - "--certificatesresolvers.letsencryptresolver.acme.email=rodnei@rwebtec.com.br"
+      - "--certificatesresolvers.letsencryptresolver.acme.storage=/etc/traefik/letsencrypt/acme.json"
     deploy:
       placement:
         constraints:
